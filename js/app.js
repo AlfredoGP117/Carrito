@@ -1,19 +1,36 @@
-//Variables
+// Variables
 const carrito = document.querySelector('#carrito');
-const contenedorCarrito = document.querySelector('#lista-carrito tbody');
 const listaCursos = document.querySelector('#lista-cursos');
-const vaciarCarrito = document.querySelector('#vaciar-carrito');
+const contenedorCarrito = document.querySelector('#lista-carrito tbody');
+const vaciarCarritoBtn = document.querySelector('#vaciar-carrito'); 
+let articulosCarrito = [];
 
-cargarEventListener();
-function cargarEventListener(){
-    //
-    listaCursos.addEventListener('click', agregarCurso);
+// Listeners
+cargarEventListeners();
+
+function cargarEventListeners() {
+     // Dispara cuando se presiona "Agregar Carrito"
+     listaCursos.addEventListener('click', agregarCurso);
+
+     // Cuando se elimina un curso del carrito
+     carrito.addEventListener('click', eliminarCurso);
+
+     // Al Vaciar el carrito
+     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+
 }
 
-//Funciones
 
-function agregarCurso(e){
-    if(e.target.classList.contains('agregar-carrito')){
-console.log(e.target);
-    }
+
+
+// Funciones
+// Función que añade el curso al carrito
+function agregarCurso(e) {
+     e.preventDefault();
+     // Delegation para agregar-carrito
+     if(e.target.classList.contains('agregar-carrito')) {
+          const curso = e.target.parentElement.parentElement;
+          // Enviamos el curso seleccionado para tomar sus datos
+          leerDatosCurso(curso);
+     }
 }
